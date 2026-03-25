@@ -13,8 +13,8 @@ class BancaController extends Controller
 {
     public function index()
     {
-        $banca = Banca::all();
-        return view('banca.index', compact('banca'));
+        $banca = Banca::latest()->paginate(5);
+        return view('banca.index', compact('banca'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 

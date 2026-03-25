@@ -10,8 +10,8 @@ class TccController extends Controller
 {
     public function index()
     {
-        $tcc = Tcc::all();
-        return view('tcc.index', compact('tcc'));
+        $tcc = Tcc::latest()->paginate(5);
+        return view('tcc.index', compact('tcc'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 
