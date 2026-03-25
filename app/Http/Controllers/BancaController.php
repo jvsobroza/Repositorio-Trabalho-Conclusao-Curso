@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateBancaRequest;
 use App\Http\Requests\UpdateTccRequest;
 use App\Models\Banca;
 
-class TccController extends Controller
+class BancaController extends Controller
 {
     public function index()
     {
