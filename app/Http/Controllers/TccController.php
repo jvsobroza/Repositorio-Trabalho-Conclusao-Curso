@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tcc;
 use App\Http\Requests\StoreTccRequest;
 use App\Http\Requests\UpdateTccRequest;
+use App\Models\Banca;
 
 class TccController extends Controller
 {
@@ -20,8 +21,9 @@ class TccController extends Controller
      */
     public function create()
     {
-        return view('tcc.create');
-       
+        $banca = Banca::all(); //puxar todos os dados da tabela banca, usado no create Tcc
+        return view('tcc.create', compact('banca'));
+
     }
 
 
@@ -30,7 +32,16 @@ class TccController extends Controller
      */
     public function store(StoreTccRequest $request)
     {
-        Tcc::create($request->all());
+        $dados = $request->except('pdf');
+
+        if ($request->hasFile('pdf')) {
+            $pdf = $request->file('pdf')->getClientOriginalName();
+            $destino = base_path('public/pdfs');
+            $request->file('pdf')->move($destino, $pdf);
+            $dados['pdf'] = $pdf;
+        }
+
+        Tcc::create($dados);
         return redirect()->route('tcc.index');
     }
 

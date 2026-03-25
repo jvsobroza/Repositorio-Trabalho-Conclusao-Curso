@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titulo', 100);
             $table->smallInteger('paginas');
             $table->date('data');
-            $table->timestamp('hora');
+            $table->time('hora');
             $table->string('aluno', 100);
             $table->string('palavras_chave', 200);
             $table->string('pdf', 100);
