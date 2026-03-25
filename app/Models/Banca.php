@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banca extends Model
 {
-    use HasFactory;
+    protected $fillable = ['titulacao', 'nome'];
+
+    // UMA venda pertence a UM cliente
+    public function cliente()
+    {
+        return $this->belongsToMany(Tcc::class);
+    }
 }
