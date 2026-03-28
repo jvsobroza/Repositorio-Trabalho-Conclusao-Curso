@@ -17,16 +17,16 @@
                 <div class="alert alert-success" role="alert"> {{ $value }} </div>
             @endsession
             <!--Título
-            Páginas
-            data
-            hora
-            aluno
-            resumo
-            palavras chave -> sera feito com ,
-            arquivo (pdf) anexado
-            orientador
-            membros da banca - 1 obrigatório é o orientador então deixar de fora, os outros 2 sera com ,
-            -->
+                    Páginas
+                    data
+                    hora
+                    aluno
+                    resumo
+                    palavras chave -> sera feito com ,
+                    arquivo (pdf) anexado
+                    orientador
+                    membros da banca - 1 obrigatório é o orientador então deixar de fora, os outros 2 sera com ,
+                    -->
             <table class="table table-bordered table-striped mt-4 text-center align-middle">
                 <thead>
                     <tr>
@@ -49,19 +49,24 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $t->titulo }}</td>
-                            <td>{{ $t->titulacao }}</td>
+                            <td>{{ $t->paginas }}</td>
                             <td>{{ $t->data }}</td>
                             <td>{{ $t->hora }}</td>
                             <td>{{ $t->aluno }}</td>
                             <td>{{ $t->resumo }}</td>
                             <td>{{ $t->palavras_chave }}</td>
                             <td>
-                                <a class="btn btn-secondary btn-sm" href="{{ asset('storage/' . $t->arquivo) }}" target="_blank">
+                                <a class="btn btn-secondary btn-sm" href="{{ asset('pdfs/' . $t->pdf) }}" target="_blank">
                                     <i class="fa-solid fa-file-pdf"></i> Visualizar PDF
                                 </a>
                             </td>
-                            <td>{{ $t->orientador->nome }}</td>
-                            <td>{{ $t->membros_banca }}</td>
+                            <td>{{ $t->getOrientador->nome }}</td>
+                            <td>{{ $t->banca1->nome . ', ' . $t->banca2->nome }}</td>
+                            <td>
+                                <form action="{{ route('tcc.destroy', $t->id) }}" method="POST">
+                                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                                        <a class="btn btn-info btn-sm" href="{{ route('tcc.show', $t->id) }}"><i
+                                                class="fa-solid fa-list"></i> Visualizar</a>
 
                                         <a class="btn btn-primary btn-sm" href="{{ route('tcc.edit', $t->id) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i> Editar</a>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('data');
             $table->time('hora');
             $table->string('aluno', 100);
+            $table->string('resumo', 300);
             $table->string('palavras_chave', 200);
             $table->string('pdf', 100);
             $table->foreignId('orientador')

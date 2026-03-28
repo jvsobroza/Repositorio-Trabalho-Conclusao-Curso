@@ -71,15 +71,30 @@
             <label for="inputAluno" class="form-label"><strong>Aluno:</strong></label>
             <input
                 type="text"
-                name="titulacao"
+                name="aluno"
                 maxlength="100"
                 minlength="5"
                 oninput="tamanhoMax(this), verificarMin(this)"
-                class="form-control @error('titulacao') is-invalid @enderror"
-                id="inputTitulacao"
+                class="form-control @error('aluno') is-invalid @enderror"
+                id="inputAluno"
                 required
                 placeholder="Alarico da Silva">
-            @error('titulacao')
+            @error('aluno')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-1">
+            <label for="inputResumo" class="form-label"><strong>Resumo:</strong></label>
+            <textarea
+                name="resumo"
+                maxlength="200"
+                minlength="10"
+                oninput="tamanhoMax(this), verificarMin(this)"
+                class="form-control @error('resumo') is-invalid @enderror"
+                id="inputResumo"
+                required
+                placeholder="Resumo do TCC"></textarea>
+            @error('resumo')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -138,9 +153,9 @@
         <div class="mb-1">
             <label for="inputBanca" class="form-label"><strong>Banca 1:</strong></label>
                 <select 
-                    name="banca" 
+                    name="banca_1" 
                     id="inputBanca" 
-                    class="form-select @error('banca') is-invalid @enderror" 
+                    class="form-select @error('banca_1') is-invalid @enderror" 
                     required>
                     <option value="">Selecione uma banca</option>
                     @foreach($banca as $ba)
@@ -149,16 +164,16 @@
                         </option>
                     @endforeach
                 </select>
-            @error('banca_id')
+            @error('banca_1')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>   
         <div class="mb-1">
             <label for="inputBanca2" class="form-label"><strong>Banca 2:</strong></label>
                 <select 
-                    name="orientador" 
+                    name="banca_2" 
                     id="inputBanca2" 
-                    class="form-select @error('orientador') is-invalid @enderror" 
+                    class="form-select @error('banca_2') is-invalid @enderror" 
                     required>
                     <option value="">Selecione a segunda banca</option>
                     @foreach($banca as $ba)
@@ -167,7 +182,7 @@
                         </option>
                     @endforeach
                 </select>
-            @error('banca_id')
+            @error('banca_2')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>   
