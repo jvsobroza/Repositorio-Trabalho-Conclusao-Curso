@@ -61,21 +61,31 @@ class TccController extends Controller
     public function edit($id)
     {
         $tcc = Tcc::findOrFail($id);
-        return view('tcc.edit', compact('tcc'));
+        $banca = Banca::all();
+        return view('tcc.edit', compact('tcc', 'banca'));
     }
 
 
     /**
      * Atualize o recurso especificado no armazenamento.
      */
-    public function update(UpdateTccRequest $request, $id)
+    public function update(UpdateTccRequest $request, Tcc $tcc)
     {
-        $tcc = Tcc::findOrFail($id);
-        $tcc->update($request->all());
+        $dados = $request->except('pdf');
 
+        if ($request->hasFile('pdf')) {
+            $pdf = $request->file('pdf')->getClientOriginalName();
+            $destino = base_path('public/pdfs');
+            $request->file('pdf')->move($destino, $pdf);
+            $dados['pdf'] = $pdf;
+        } else {
+            $dados['pdf'] = $tcc->pdf; // mantém o pdf antigo se não enviar um novo
+        }
 
+        $tcc->update($dados);
         return redirect()->route('tcc.index');
     }
+
 
 
     /**

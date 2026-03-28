@@ -41,6 +41,7 @@
                         <th>Arquivo</th>
                         <th>Orientador</th>
                         <th>Membros da Banca</th>
+                        <th width="100px">Ação</th>
                     </tr>
                 </thead>
 
