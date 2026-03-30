@@ -74,12 +74,16 @@ class TccController extends Controller
         $dados = $request->except('pdf');
 
         if ($request->hasFile('pdf')) {
+            $pdfAntigo = base_path('public/pdfs/' . $tcc->pdf);
+            if (file_exists($pdfAntigo)) {
+                unlink($pdfAntigo);
+            }
             $pdf = $request->file('pdf')->getClientOriginalName();
             $destino = base_path('public/pdfs');
             $request->file('pdf')->move($destino, $pdf);
             $dados['pdf'] = $pdf;
         } else {
-            $dados['pdf'] = $tcc->pdf; // mantém o pdf antigo se não enviar um novo
+            $dados['pdf'] = $tcc->pdf;
         }
 
         $tcc->update($dados);

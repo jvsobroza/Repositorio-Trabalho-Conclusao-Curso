@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card mt-5">
-  <h2 class="card-header">Editar TCC</h2>
+  <h2 class="card-header bg-primary text-white">Editar TCC</h2>
   <div class="card-body">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -136,7 +136,6 @@
             <select
                 name="orientador"
                 id="inputOrientador"
-                onchange="atualizarCadeia(0)"
                 class="form-select @error('orientador') is-invalid @enderror"
                 required>
                 <option value="">Selecione um orientador</option>
@@ -155,7 +154,6 @@
             <select
                 name="banca_1"
                 id="inputBanca"
-                onchange="atualizarCadeia(1)"
                 class="form-select @error('banca_1') is-invalid @enderror"
                 required>
                 <option value="">Selecione uma banca</option>
@@ -194,3 +192,54 @@
   </div>
 </div>
 @endsection
+
+<script>
+    function tamanhoMax(e)
+    {
+        if (e.value.length > e.maxLength)
+        e.value = e.value.slice(0, e.maxLength)
+    }
+
+    function verificarMin(e) {
+        const min = e.getAttribute('minlength');
+        if (e.value.length > 0 && e.value.length < min) {
+            e.style.borderColor = "red";
+            e.style.borderWidth = "2px"; 
+        } else {
+            e.style.borderColor = ""; 
+            e.style.borderWidth = "";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+    const form = document.querySelector("form");
+    const inputs = form.querySelectorAll("input");
+    form.addEventListener("submit", function (event) {
+            let formValid = true;
+            inputs.forEach(e => {
+                if (e.value.length > 0 && e.value.length < e.getAttribute('minlength')) {
+                    formValid = false;
+                }
+            });
+            if (!formValid) {
+                event.preventDefault();
+                alert("Preencha todos os campos corretamente!");
+            }
+        });
+    });
+    
+     /*function liberarProximo(atual, idProximo) {
+            var proximo = document.getElementById(idProximo);
+            var itemRemovido = document.createElement("option");
+            itemRemovido.value = atual.value;
+            itemRemovido.text = atual.text;
+            if (atual.value !== "") {
+                proximo.disabled = false;
+                proximo.remove(atual.selectedIndex); 
+            } else {
+                proximo.disabled = true;
+                proximo.add(itemRemovido);
+                proximo.value = "";
+            }
+        }*/
+</script>

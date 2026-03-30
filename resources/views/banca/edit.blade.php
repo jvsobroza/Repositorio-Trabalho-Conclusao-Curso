@@ -3,7 +3,7 @@
  
 @section('content')
 <div class="card mt-5">
-  <h2 class="card-header">Editar Professor/Banca</h2>
+  <h2 class="card-header bg-primary text-white">Editar Professor/Banca</h2>
   <div class="card-body">
  
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

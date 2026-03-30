@@ -2,8 +2,8 @@
 @section('content')
 
     <div class="card mt-5">
-        <h2 class="card-header">Repositórios de TCCs</h2>
-        <div class="card-body">
+        <h2 class="card-header bg-primary text-white">Repositórios de TCCs</h2>
+        <div class="card-body ">
 
             <div class="d-flex justify-content-between align-items-center gap-1">
                 <a class="btn btn-primary btn-sm" href="{{ route('banca.index') }}">

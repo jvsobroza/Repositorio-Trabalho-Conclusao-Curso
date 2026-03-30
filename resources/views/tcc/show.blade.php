@@ -1,81 +1,107 @@
 @extends('tcc.layout')
 
 @section('content')
-    <div class="card mt-5">
-        <h2 class="card-header">Detalhes do TCC</h2>
-        <div class="card-body">
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary btn-sm" href="{{ route('tcc.index') }}"><i class="fa fa-arrow-left"></i>
-                    Retornar</a>
+    <div class="container mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="fa-solid fa-graduation-cap me-2"></i>Detalhes do TCC</h4>
+                <a class="btn btn-light btn-sm" href="{{ route('tcc.index') }}">
+                    <i class="fa fa-arrow-left"></i> Retornar
+                </a>
             </div>
+            <div class="card-body p-4">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Título:</strong> <br />
-                        {{ $tcc->titulo }}
+                {{-- Título e Aluno --}}
+                <div class="mb-4">
+                    <h5 class="text-primary fw-bold">{{ $tcc->titulo }}</h5>
+                    <span class="text-muted">
+                        <i class="fa-solid fa-user-graduate me-1"></i>{{ $tcc->aluno }}
+                    </span>
+                </div>
+
+                <hr>
+
+                {{-- Informações gerais --}}
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-calendar-day text-primary mb-1"></i>
+                            <div class="small text-muted">Data</div>
+                            <strong>{{ $tcc->data }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-clock text-primary mb-1"></i>
+                            <div class="small text-muted">Hora</div>
+                            <strong>{{ $tcc->hora }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-file-lines text-primary mb-1"></i>
+                            <div class="small text-muted">Páginas</div>
+                            <strong>{{ $tcc->paginas }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-file-pdf text-danger mb-1"></i>
+                            <div class="small text-muted">Arquivo</div>
+                            <a class="btn btn-danger btn-sm mt-1" href="{{ asset('pdfs/' . $tcc->pdf) }}" target="_blank">
+                                <i class="fa-solid fa-eye"></i> Visualizar
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Páginas:</strong> <br />
-                        {{ $tcc->paginas }}
+
+                <hr>
+
+                {{-- Resumo --}}
+                <div class="mb-4">
+                    <h6 class="text-uppercase text-muted fw-bold mb-2">Resumo</h6>
+                    <p>{{ $tcc->resumo }}</p>
+                </div>
+
+                {{-- Palavras-chave --}}
+                <div class="mb-4">
+                    <h6 class="text-uppercase text-muted fw-bold mb-2">Palavras-Chave</h6>
+                    @foreach(explode(',', $tcc->palavras_chave) as $palavra)
+                        <span class="badge bg-primary me-1">{{ trim($palavra) }}</span>
+                    @endforeach
+                </div>
+
+                <hr>
+
+                {{-- Banca --}}
+                <div class="mb-2">
+                    <h6 class="text-uppercase text-muted fw-bold mb-3">Banca Examinadora</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded text-center">
+                                <i class="fa-solid fa-chalkboard-teacher text-success mb-1"></i>
+                                <div class="small text-muted">Orientador</div>
+                                <strong>{{ $tcc->getOrientador->nome }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded text-center">
+                                <i class="fa-solid fa-user-tie text-secondary mb-1"></i>
+                                <div class="small text-muted">Membro 1</div>
+                                <strong>{{ $tcc->banca1->nome ?? '-' }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded text-center">
+                                <i class="fa-solid fa-user-tie text-secondary mb-1"></i>
+                                <div class="small text-muted">Membro 2</div>
+                                <strong>{{ $tcc->banca2->nome ?? '-' }}</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
-                    <div class="form-group">
-                        <strong>Data:</strong> <br />
-                        {{ $tcc->data }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Hora:</strong> <br />
-                        {{ $tcc->hora }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Aluno:</strong> <br />
-                        {{ $tcc->aluno }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Resumo:</strong> <br />
-                        {{ $tcc->resumo }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Palavras-Chave:</strong> <br />
-                        {{ $tcc->palavras_chave }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Arquivo:</strong> <br />
-                        {{ $tcc->pdf }}
-                        <a class="btn btn-secondary btn-sm" href="{{ asset('pdfs/' . $tcc->pdf) }}" target="_blank">
-                            <i class="fa-solid fa-file-pdf"></i> Visualizar PDF
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Orientador:</strong> <br />
-                        {{ $tcc->getOrientador->nome }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Membros da banca:</strong> <br />
-                        {{ $tcc->banca1->nome . ', ' . $tcc->banca2->nome }}
-                    </div>
-                </div>
+
             </div>
-
         </div>
     </div>
 @endsection

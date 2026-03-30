@@ -2,7 +2,7 @@
  
 @section('content')
 <div class="card mt-5">
-  <h2 class="card-header">Adicionar novo TCC</h2>
+  <h2 class="card-header bg-primary text-white">Adicionar novo TCC</h2>
   <div class="card-body">
  
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -1,31 +1,34 @@
 @extends('banca.layout')
 
 @section('content')
-    <div class="card mt-5">
-        <h2 class="card-header">Banca</h2>
-        <div class="card-body">
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary btn-sm" href="{{ route('banca.index') }}"><i class="fa fa-arrow-left"></i>
-                    Retornar</a>
+    <div class="container mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="fa-solid fa-people-group me-2"></i>Detalhes da Banca</h4>
+                <a class="btn btn-light btn-sm" href="{{ route('banca.index') }}">
+                    <i class="fa fa-arrow-left"></i> Retornar
+                </a>
             </div>
+            <div class="card-body p-4">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Nome:</strong> <br />
-                        {{ $banca->nome }}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-user text-primary mb-1"></i>
+                            <div class="small text-muted">Nome</div>
+                            <strong>{{ $banca->nome }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <i class="fa-solid fa-graduation-cap text-primary mb-1"></i>
+                            <div class="small text-muted">Titulação</div>
+                            <strong>{{ $banca->titulacao }}</strong>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Titulação:</strong> <br />
-                        {{ $banca->titulacao }}
-                    </div>
-                </div>
 
             </div>
-
         </div>
     </div>
 @endsection

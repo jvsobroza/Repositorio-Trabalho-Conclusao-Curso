@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="card mt-5">
-        <h2 class="card-header">Banca e Professores</h2>
+        <h2 class="card-header bg-primary text-white">Banca e Professores</h2>
         <div class="card-body">
             @session('success')
                 <div class="alert alert-success" role="alert"> {{ $value }} </div>
