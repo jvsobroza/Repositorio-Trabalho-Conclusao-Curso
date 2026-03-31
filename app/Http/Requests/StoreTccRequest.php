@@ -22,7 +22,17 @@ class StoreTccRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'titulo' => 'required|string|min:10|max:100',
+            'paginas' => 'required|integer|min:1',
+            'data' => 'required|date',
+            'hora' => 'required|date_format:H:i',
+            'aluno' => 'required|string|min:5|max:100',
+            'resumo' => 'required|string|min:10|max:300',
+            'palavras_chave' => 'required|string|min:5|max:200',
+            'pdf' => 'required|file|mimes:pdf|max:10240',
+            'orientador' => 'required|exists:bancas,id',
+            'banca_1' => 'required|exists:bancas,id|different:orientador',
+            'banca_2' => 'required|exists:bancas,id|different:orientador|different:banca_1',
         ];
     }
 }

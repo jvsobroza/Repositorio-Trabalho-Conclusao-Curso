@@ -22,7 +22,8 @@ class StoreBancaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome' => 'required|string|min:10|max:100',
+            'titulacao' => 'required|string|min:5|max:50',
         ];
     }
 }
