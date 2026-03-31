@@ -298,4 +298,34 @@
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const orientador = document.querySelector('[name="orientador"]');
+    const banca1 = document.querySelector('[name="banca_1"]');
+    const banca2 = document.querySelector('[name="banca_2"]');
+
+    function atualizarOpcoes() {
+        const valoresSelecionados = [
+            orientador.value,
+            banca1.value,
+            banca2.value
+        ];
+
+        [orientador, banca1, banca2].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (option.value === "") return;
+
+                if (valoresSelecionados.includes(option.value) && option.value !== select.value) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            });
+        });
+    }
+
+    orientador.addEventListener("change", atualizarOpcoes);
+    banca1.addEventListener("change", atualizarOpcoes);
+    banca2.addEventListener("change", atualizarOpcoes);
+});
 </script>

@@ -277,3 +277,69 @@
     </div>
 </div>
 @endsection
+
+<script>
+    function tamanhoMax(e)
+    {
+        if (e.value.length > e.maxLength)
+        e.value = e.value.slice(0, e.maxLength)
+    }
+
+    function verificarMin(e) {
+        const min = e.getAttribute('minlength');
+        if (e.value.length > 0 && e.value.length < min) {
+            e.style.borderColor = "red";
+            e.style.borderWidth = "2px"; 
+        } else {
+            e.style.borderColor = ""; 
+            e.style.borderWidth = "";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+    const form = document.querySelector("form");
+    const inputs = form.querySelectorAll("input");
+    form.addEventListener("submit", function (event) {
+            let formValid = true;
+            inputs.forEach(e => {
+                if (e.value.length > 0 && e.value.length < e.getAttribute('minlength')) {
+                    formValid = false;
+                }
+            });
+            if (!formValid) {
+                event.preventDefault();
+                alert("Preencha todos os campos corretamente!");
+            }
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+    const orientador = document.querySelector('[name="orientador"]');
+    const banca1 = document.querySelector('[name="banca_1"]');
+    const banca2 = document.querySelector('[name="banca_2"]');
+
+    function atualizarOpcoes() {
+        const valoresSelecionados = [
+            orientador.value,
+            banca1.value,
+            banca2.value
+        ];
+
+        [orientador, banca1, banca2].forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (option.value === "") return;
+
+                if (valoresSelecionados.includes(option.value) && option.value !== select.value) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "block";
+                }
+            });
+        });
+    }
+    atualizarOpcoes();
+
+    orientador.addEventListener("change", atualizarOpcoes);
+    banca1.addEventListener("change", atualizarOpcoes);
+    banca2.addEventListener("change", atualizarOpcoes);
+});
+</script>
