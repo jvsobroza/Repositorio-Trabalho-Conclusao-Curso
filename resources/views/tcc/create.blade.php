@@ -1,198 +1,269 @@
 @extends('tcc.layout')
  
 @section('content')
-<div class="card mt-5">
-  <h2 class="card-header bg-primary text-white">Adicionar novo TCC</h2>
-  <div class="card-body">
- 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary btn-sm" href="{{ route('tcc.index') }}"><i class="fa fa-arrow-left"></i> Retornar</a>
+<div class="page-content">
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="display-5 fw-bold text-dark">
+            <i class="fas fa-plus-circle text-primary me-3"></i>Adicionar Novo TCC
+        </h1>
+        <p class="text-secondary lead">Registre um novo trabalho de conclusão de curso</p>
     </div>
- 
-    <form action="{{ route('tcc.store') }}" method="POST" enctype="multipart/form-data">
+
+    <!-- Back Button -->
+    <div class="mb-3">
+        <a class="btn btn-outline-primary" href="{{ route('tcc.index') }}">
+            <i class="fas fa-arrow-left me-2"></i>Voltar à Lista
+        </a>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <i class="fas fa-form me-2"></i>Dados do TCC
+        </div>
+        <div class="card-body">
+    <form action="{{ route('tcc.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
         @csrf
-        <div class="mb-1">
-            <label for="inputTitulo" class="form-label"><strong>Título:</strong></label>
-            <input
-                type="text"
-                oninput="tamanhoMax(this), verificarMin(this)"
-                maxlength="100"
-                minlength="10"
-                name="titulo"
-                class="form-control @error('titulo') is-invalid @enderror"
-                id="inputTitulo"
-                required
-                placeholder="Sistema de Gerenciamento de TCCs para Faculdade XYZ">
-            @error('titulo')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
+        
+        <!-- Dados Básicos -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputTitulo" class="form-label">
+                        <strong><i class="fas fa-file me-2 text-primary"></i>Título</strong>
+                    </label>
+                    <input
+                        type="text"
+                        maxlength="100"
+                        minlength="10"
+                        name="titulo"
+                        class="form-control form-control-lg @error('titulo') is-invalid @enderror"
+                        id="inputTitulo"
+                        required
+                        placeholder="Ex: Sistema de Gerenciamento de TCCs"
+                        oninput="tamanhoMax(this); verificarMin(this)">
+                    <small class="form-text text-muted">Mínimo de 10 caracteres</small>
+                    @error('titulo')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputPaginas" class="form-label">
+                        <strong><i class="fas fa-file-lines me-2 text-primary"></i>Páginas</strong>
+                    </label>
+                    <input
+                        type="number"
+                        name="paginas"
+                        class="form-control form-control-lg @error('paginas') is-invalid @enderror"
+                        id="inputPaginas"
+                        required
+                        placeholder="Ex: 50">
+                    @error('paginas')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
         </div>
-        <div class="mb-1">
-            <label for="inputPaginas" class="form-label"><strong>Páginas:</strong></label>
-            <input
-                type="number"
-                name="paginas"
-                oninput="tamanhoMax(this), verificarMin(this)"
-                minlength="2"
-                maxlength="100"
-                class="form-control @error('paginas') is-invalid @enderror"
-                id="inputPaginas"
-                required
-                placeholder="10">
-            @error('paginas')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
+
+        <!-- Data e Hora -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputData" class="form-label">
+                        <strong><i class="fas fa-calendar me-2 text-primary"></i>Data da Defesa</strong>
+                    </label>
+                    <input
+                        type="date"
+                        name="data"
+                        class="form-control form-control-lg @error('data') is-invalid @enderror"
+                        id="inputData"
+                        required>
+                    @error('data')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputHora" class="form-label">
+                        <strong><i class="fas fa-clock me-2 text-primary"></i>Horário da Defesa</strong>
+                    </label>
+                    <input
+                        type="time"
+                        name="hora"
+                        class="form-control form-control-lg @error('hora') is-invalid @enderror"
+                        id="inputHora"
+                        required>
+                    @error('hora')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
         </div>
-        <div class="mb-1">
-            <label for="inputData" class="form-label"><strong>Data:</strong></label>
-            <input
-                type="date"
-                name="data"
-                class="form-control @error('data') is-invalid @enderror"
-                id="inputData"
-                required>
-            @error('data')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-1">
-            <label for="inputHora" class="form-label"><strong>Hora:</strong></label>
-            <input
-                type="time"
-                name="hora"
-                class="form-control @error('hora') is-invalid @enderror"
-                id="inputHora"
-                required>
-            @error('hora')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-1">
-            <label for="inputAluno" class="form-label"><strong>Aluno:</strong></label>
+
+        <!-- Aluno e Resumo -->
+        <div class="mb-4">
+            <label for="inputAluno" class="form-label">
+                <strong><i class="fas fa-user-graduate me-2 text-primary"></i>Nome do Aluno</strong>
+            </label>
             <input
                 type="text"
                 name="aluno"
                 maxlength="100"
                 minlength="5"
-                oninput="tamanhoMax(this), verificarMin(this)"
-                class="form-control @error('aluno') is-invalid @enderror"
+                class="form-control form-control-lg @error('aluno') is-invalid @enderror"
                 id="inputAluno"
                 required
-                placeholder="Alarico da Silva">
+                placeholder="Ex: João Silva Santos"
+                oninput="tamanhoMax(this); verificarMin(this)">
+            <small class="form-text text-muted">Mínimo de 5 caracteres</small>
             @error('aluno')
-                <div class="form-text text-danger">{{ $message }}</div>
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-1">
-            <label for="inputResumo" class="form-label"><strong>Resumo:</strong></label>
+
+        <div class="mb-4">
+            <label for="inputResumo" class="form-label">
+                <strong><i class="fas fa-align-left me-2 text-primary"></i>Resumo</strong>
+            </label>
             <textarea
                 name="resumo"
                 maxlength="200"
                 minlength="10"
-                oninput="tamanhoMax(this), verificarMin(this)"
-                class="form-control @error('resumo') is-invalid @enderror"
+                class="form-control form-control-lg @error('resumo') is-invalid @enderror"
                 id="inputResumo"
                 required
-                placeholder="Resumo do TCC"></textarea>
+                rows="3"
+                placeholder="Descrição breve do trabalho..."
+                oninput="tamanhoMax(this); verificarMin(this)"></textarea>
+            <small class="form-text text-muted">Máximo de 200 caracteres</small>
             @error('resumo')
-                <div class="form-text text-danger">{{ $message }}</div>
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-1">
-            <label for="inputPalavrasChave" class="form-label"><strong>Palavras-Chave:</strong></label>
+
+        <div class="mb-4">
+            <label for="inputPalavrasChave" class="form-label">
+                <strong><i class="fas fa-tags me-2 text-primary"></i>Palavras-Chave</strong>
+            </label>
             <input
                 type="text"
                 name="palavras_chave"
                 maxlength="200"
                 minlength="5"
-                oninput="tamanhoMax(this), verificarMin(this)"
-                class="form-control @error('palavras_chave') is-invalid @enderror"
+                class="form-control form-control-lg @error('palavras_chave') is-invalid @enderror"
                 id="inputPalavrasChave"
                 required
-                placeholder="Tecnologia, Educação, Inovação">
+                placeholder="Ex: Tecnologia, Educação, Inovação"
+                oninput="tamanhoMax(this); verificarMin(this)">
+            <small class="form-text text-muted">Separadas por vírgula</small>
             @error('palavras_chave')
-                <div class="form-text text-danger">{{ $message }}</div>
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-1">
-            <label for="inputPdf" class="form-label"><strong>PDF:</strong></label>
+
+        <!-- Arquivo PDF -->
+        <div class="mb-4">
+            <label for="inputPdf" class="form-label">
+                <strong><i class="fas fa-file-pdf me-2 text-danger"></i>Arquivo PDF</strong>
+            </label>
             <input
                 type="file"
                 name="pdf"
-                class="form-control @error('pdf') is-invalid @enderror"
+                accept=".pdf"
+                class="form-control form-control-lg @error('pdf') is-invalid @enderror"
                 id="inputPdf"
-                required
-                placeholder="Caminho para o arquivo PDF">
+                required>
+            <small class="form-text text-muted">Somente arquivos PDF</small>
             @error('pdf')
-                <div class="form-text text-danger">{{ $message }}</div>
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
-        <!-- https://www.youtube.com/watch?v=mhZAuaBZ_cA pesquisar por que não funciona
-                             onchange="liberarProximo(this, 'inputBanca')"
--->
-        <div class="mb-1">
-            <label for="inputOrientador" class="form-label"><strong>Orientador:</strong></label>
-                <select
-                    name="orientador" 
-                    id="inputOrientador" 
-                    class="form-select @error('orientador') is-invalid @enderror" 
-                    required>
-                    <option value="">Selecione um orientador</option>
-                    @foreach($banca as $ba)
-                        <option value="{{ $ba->id }}">
-                            {{ $ba->nome }}
-                        </option>
-                    @endforeach
-                </select>
-            @error('banca_id')
-                <div class="form-text text-danger">{{ $message }}</div>
+
+        <!-- Banca -->
+        <hr class="my-4">
+        <h5 class="fw-bold mb-4"><i class="fas fa-users me-2 text-primary"></i>Composição da Banca</h5>
+
+        <div class="mb-4">
+            <label for="inputOrientador" class="form-label">
+                <strong><i class="fas fa-chalkboard-teacher me-2 text-success"></i>Orientador</strong>
+            </label>
+            <select
+                name="orientador" 
+                id="inputOrientador" 
+                class="form-select form-select-lg @error('orientador') is-invalid @enderror" 
+                required>
+                <option value="">Selecione um orientador</option>
+                @foreach($banca as $ba)
+                    <option value="{{ $ba->id }}">{{ $ba->nome }}</option>
+                @endforeach
+            </select>
+            @error('orientador')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
-        </div>        
-        <!-- banca http://sitepoint.com/community/t/generate-html-so-that-second-dropdown-can-be-based-on-selected-value-of-first-dropdown/367771 
-         onchange="liberarProximo(this, 'inputBanca2')"-->
-        <div class="mb-1">
-            <label for="inputBanca" class="form-label"><strong>Banca 1:</strong></label>
-                <select 
-                    name="banca_1" 
-                    id="inputBanca" 
-                    class="form-select @error('banca_1') is-invalid @enderror" 
-                    required>
-                    <option value="">Selecione uma banca</option>
-                    @foreach($banca as $ba)
-                        <option value="{{ $ba->id }}">
-                            {{ $ba->nome }}
-                        </option>
-                    @endforeach
-                </select>
-            @error('banca_1')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
-        </div>   
-        <div class="mb-1">
-            <label for="inputBanca2" class="form-label"><strong>Banca 2:</strong></label>
-                <select 
-                    name="banca_2" 
-                    id="inputBanca2" 
-                    class="form-select @error('banca_2') is-invalid @enderror" 
-                    required>
-                    <option value="">Selecione a segunda banca</option>
-                    @foreach($banca as $ba)
-                        <option value="{{ $ba->id }}">
-                            {{ $ba->nome }}
-                        </option>
-                    @endforeach
-                </select>
-            @error('banca_2')
-                <div class="form-text text-danger">{{ $message }}</div>
-            @enderror
-        </div>   
-        
-        <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Cadastrar</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputBanca" class="form-label">
+                        <strong><i class="fas fa-user-tie me-2 text-info"></i>Membro 1 da Banca</strong>
+                    </label>
+                    <select 
+                        name="banca_1" 
+                        id="inputBanca" 
+                        class="form-select form-select-lg @error('banca_1') is-invalid @enderror" 
+                        required>
+                        <option value="">Selecione um membro</option>
+                        @foreach($banca as $ba)
+                            <option value="{{ $ba->id }}">{{ $ba->nome }}</option>
+                        @endforeach
+                    </select>
+                    @error('banca_1')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="inputBanca2" class="form-label">
+                        <strong><i class="fas fa-user-tie me-2 text-info"></i>Membro 2 da Banca</strong>
+                    </label>
+                    <select 
+                        name="banca_2" 
+                        id="inputBanca2" 
+                        class="form-select form-select-lg @error('banca_2') is-invalid @enderror" 
+                        required>
+                        <option value="">Selecione um membro</option>
+                        @foreach($banca as $ba)
+                            <option value="{{ $ba->id }}">{{ $ba->nome }}</option>
+                        @endforeach
+                    </select>
+                    @error('banca_2')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="fas fa-check-circle me-2"></i>Cadastrar TCC
+            </button>
+            <a href="{{ route('tcc.index') }}" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-times me-2"></i>Cancelar
+            </a>
+        </div>
     </form>
- 
-  </div>
+        </div>
+    </div>
 </div>
 @endsection
+
 <script>
     function tamanhoMax(e)
     {
@@ -227,19 +298,4 @@
             }
         });
     });
-    
-     /*function liberarProximo(atual, idProximo) {
-            var proximo = document.getElementById(idProximo);
-            var itemRemovido = document.createElement("option");
-            itemRemovido.value = atual.value;
-            itemRemovido.text = atual.text;
-            if (atual.value !== "") {
-                proximo.disabled = false;
-                proximo.remove(atual.selectedIndex); 
-            } else {
-                proximo.disabled = true;
-                proximo.add(itemRemovido);
-                proximo.value = "";
-            }
-        }*/
 </script>
